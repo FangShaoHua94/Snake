@@ -4,38 +4,41 @@ import java.util.Objects;
 
 public class Point {
 
-    private final int x;
-    private final int y;
+    private final int coordinateX;
+    private final int coordinateY;
 
-    public Point(int x, int y){
-        this.x=x;
-        this.y=y;
+    public Point(int coordinateX, int coordinateY) {
+        this.coordinateX = coordinateX;
+        this.coordinateY = coordinateY;
     }
 
-    public Point(Point point,int x, int y){
-        this.x=point.x+x;
-        this.y=point.y+y;
+    public Point(Point point, int coordinateX, int coordinateY) {
+        this.coordinateX = point.getCoordinateX() + coordinateX;
+        this.coordinateY = point.getCoordinateY() + coordinateY;
     }
 
-    public int getX(){
-        return x;
+    public int getCoordinateX() {
+        return coordinateX;
     }
 
-    public int getY(){
-        return y;
+    public int getCoordinateY() {
+        return coordinateY;
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Point point = (Point) o;
-        return x == point.x &&
-                y == point.y;
+        return coordinateX == point.coordinateX && coordinateY == point.coordinateY;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(x, y);
+        return Objects.hash(coordinateX, coordinateY);
     }
 }
