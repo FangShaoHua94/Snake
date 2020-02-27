@@ -10,16 +10,19 @@ import logic.Snake;
 import static java.util.Objects.requireNonNull;
 import static logic.Board.SIZE;
 import static logic.Game.HEIGHT;
+import static logic.Game.WIDTH;
 
 
 public class Painter {
 
     private static final String SCORE_TEXT = "Score : %d";
+    private static final String SPEED_TEXT = "Speed : %d";
 
     /**
      * Paints the board with game details.
+     *
      * @param game contains detail of the game.
-     * @param gc is the scene to be painted on.
+     * @param gc   is the scene to be painted on.
      */
     public static void paint(Game game, GraphicsContext gc) {
         requireNonNull(game);
@@ -28,12 +31,14 @@ public class Painter {
         paintFood(game.getFood(), gc);
         paintSnake(game.getSnake(), gc);
         paintScore(game.getScore(), gc);
+        paintSpeed(game.getSpeed(), gc);
     }
 
     /**
      * Paints the board with flicking effect.
+     *
      * @param game contains detail of the game.
-     * @param gc is the scene to be painted on.
+     * @param gc   is the scene to be painted on.
      */
     public static void paintFlicking(Game game, GraphicsContext gc) {
         requireNonNull(game);
@@ -42,6 +47,7 @@ public class Painter {
         paintFood(game.getFood(), gc);
         paintDeadSnake(game.getSnake(), gc);
         paintScore(game.getScore(), gc);
+        paintSpeed(game.getSpeed(), gc);
     }
 
     private static void paintBoard(Board board, GraphicsContext gc) {
@@ -80,7 +86,12 @@ public class Painter {
 
     private static void paintScore(int score, GraphicsContext gc) {
         gc.setFill(Color.WHITE);
-        gc.fillText(String.format(SCORE_TEXT, score * 100), 10, HEIGHT);
+        gc.fillText(String.format(SCORE_TEXT, score), 5, HEIGHT - 5);
+    }
+
+    private static void paintSpeed(long speed, GraphicsContext gc) {
+        gc.setFill(Color.WHITE);
+        gc.fillText(String.format(SPEED_TEXT, speed), WIDTH - 80, HEIGHT - 5);
     }
 
 }

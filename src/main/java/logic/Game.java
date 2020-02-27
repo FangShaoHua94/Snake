@@ -10,9 +10,10 @@ public class Game implements Runnable {
 
     public static final int HEIGHT = 400;
     public static final int WIDTH = 500;
-    public static final long GAME_DELAY = 70;
+    public static final long GAME_DELAY = 100;
     public static final int FLICKING = 10;
     public static final int FLICKING_DELAY = 50;
+    public static final double SPEED_GROWTH = 0.5;
 
     private Snake snake;
     private Board board;
@@ -21,6 +22,7 @@ public class Game implements Runnable {
 
     /**
      * Initiates a game with logic control.
+     *
      * @param gc is the scene of the game.
      */
     public Game(GraphicsContext gc) {
@@ -43,7 +45,11 @@ public class Game implements Runnable {
     }
 
     public int getScore() {
-        return snake.getBody().size() - 2;
+        return (snake.getBody().size() - 2) * 100;
+    }
+
+    public long getSpeed() {
+        return (int) Math.pow(getScore(), SPEED_GROWTH);
     }
 
     @Override
@@ -55,7 +61,7 @@ public class Game implements Runnable {
                 snake.grow();
                 generateFood();
             }
-            delay(GAME_DELAY);
+            delay(GAME_DELAY - (int) Math.pow(getScore(), SPEED_GROWTH));
         }
         endGame();
     }

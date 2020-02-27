@@ -44,7 +44,8 @@ public class Snake {
 
     /**
      * Check if the snake collide with the wall.
-     * @param width is the x coordinate of the head.
+     *
+     * @param width  is the x coordinate of the head.
      * @param height is the y coordinate of the head.
      * @return if the snake collide with the wall.
      */
