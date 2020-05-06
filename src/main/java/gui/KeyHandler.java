@@ -1,23 +1,27 @@
 package gui;
 
 import javafx.event.EventHandler;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
 import logic.Direction;
+import logic.Game;
 import logic.Snake;
 
 import static java.util.Objects.requireNonNull;
 
 public class KeyHandler implements EventHandler<KeyEvent> {
 
-    private final Snake snake;
+    private Game game;
+    private GraphicsContext gc;
 
-    public KeyHandler(Snake snake) {
-        requireNonNull(snake);
-        this.snake = snake;
+    public KeyHandler(Game game, GraphicsContext gc) {
+        this.game=game;
+        this.gc=gc;
     }
 
     @Override
     public void handle(KeyEvent keyEvent) {
+        Snake snake = game.getSnake();
         Direction direction = snake.getDirection();
         switch (keyEvent.getCode()) {
         case UP:
@@ -39,6 +43,11 @@ public class KeyHandler implements EventHandler<KeyEvent> {
             if (direction != Direction.RIGHT && direction != Direction.LEFT) {
                 snake.updateDirection(Direction.RIGHT);
             }
+            break;
+        case ENTER:
+            game.terminateGame();
+            game = new Game(gc);
+            (new Thread(game)).start();
             break;
         default:
             break;

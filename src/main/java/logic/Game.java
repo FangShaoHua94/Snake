@@ -19,6 +19,7 @@ public class Game implements Runnable {
     private Board board;
     private Point food;
     private final GraphicsContext gc;
+    private boolean isTerminated=false;
 
     /**
      * Initiates a game with logic control.
@@ -55,6 +56,9 @@ public class Game implements Runnable {
     @Override
     public void run() {
         while (!isEndGame()) {
+            if(isTerminated){
+                return;
+            }
             Painter.paint(this, gc);
             snake.move();
             if (snake.hasAte(food)) {
@@ -64,6 +68,10 @@ public class Game implements Runnable {
             delay(GAME_DELAY - (int) Math.pow(getScore(), SPEED_GROWTH));
         }
         endGame();
+    }
+
+    public void terminateGame(){
+        isTerminated=true;
     }
 
     private boolean isEndGame() {
@@ -88,6 +96,9 @@ public class Game implements Runnable {
 
     private void endGame() {
         for (int i = 0; i < FLICKING; i++) {
+            if(isTerminated){
+                return;
+            }
             Painter.paintFlicking(this, gc);
             delay(FLICKING_DELAY);
             Painter.paint(this, gc);

@@ -21,7 +21,7 @@ public class Main extends Application {
         Game game = new Game(gc);
         Painter.paint(game, gc);
         canvas.setFocusTraversable(true);
-        canvas.setOnKeyPressed(new KeyHandler(game.getSnake()));
+        canvas.setOnKeyPressed(new KeyHandler(game,gc));
         Pane root = new Pane();
         root.getChildren().add(canvas);
         Scene scene = new Scene(root);
